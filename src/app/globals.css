@@ -1,26 +1,102 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary: #fefaf3;
+  --secondary: #4d2a00;
+  --background: #fefaf3;
+  --foreground: #1c140c;
+  --surface: #ffffff;
+  --surface-muted: #f5efe5;
+  --border: rgba(77, 42, 0, 0.14);
+  --border-strong: rgba(77, 42, 0, 0.28);
+  --muted: #6d5646;
+
+  --success: #2f6b3a;
+  --success-soft: #e6f0e4;
+  --warning: #8a5a00;
+  --warning-soft: #f8ecd2;
+  --info: #2c4f7c;
+  --info-soft: #e3ebf6;
+  --danger: #9b2c1c;
+  --danger-soft: #f7e2dd;
+}
+
+.dark {
+  --background: #0c0b0a;
+  --foreground: #f6f1e8;
+  --surface: #171513;
+  --surface-muted: #1f1c19;
+  --border: rgba(254, 250, 243, 0.12);
+  --border-strong: rgba(254, 250, 243, 0.26);
+  --muted: #b7aa9c;
+
+  --success: #8fd19a;
+  --success-soft: rgba(143, 209, 154, 0.12);
+  --warning: #f0c069;
+  --warning-soft: rgba(240, 192, 105, 0.12);
+  --info: #9cc0f0;
+  --info-soft: rgba(156, 192, 240, 0.12);
+  --danger: #f39a88;
+  --danger-soft: rgba(243, 154, 136, 0.12);
 }
 
 @theme inline {
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-muted: var(--muted);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --font-sans: var(--font-outfit);
+  --font-display: var(--font-display);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-outfit), sans-serif;
+}
+
+:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 3px;
+}
+
+dialog::backdrop {
+  background: rgba(12, 11, 10, 0.55);
+  backdrop-filter: blur(2px);
+}
+
+dialog[open] {
+  animation: dialog-in 160ms ease-out;
+}
+
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  dialog[open] {
+    animation: none;
+  }
+}
+
+input[type="number"]::-webkit-inner-spin-button {
+  opacity: 0.4;
 }
