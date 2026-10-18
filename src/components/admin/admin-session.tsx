@@ -9,7 +9,7 @@ import type { AdminUser } from "@/types/admin";
 type Session = {
   admin: AdminUser;
   signOut: () => Promise<void>;
-  /** Call when an API request returns 401. */
+  /** Call when an admin request returns 401. */
   expire: () => void;
 };
 
@@ -22,8 +22,7 @@ export function useAdminSession(): Session {
 }
 
 /**
- * Hides the portal until the API confirms the session. The API checks every
- * admin request itself; this only avoids flashing private screens.
+ * Hides the portal until Supabase confirms the admin session and profile.
  */
 export function AdminSessionProvider({
   children,
@@ -51,7 +50,7 @@ export function AdminSessionProvider({
       .catch((err: unknown) => {
         if (!active) return;
         if (err instanceof ApiError && err.status === 401) router.replace("/admin/login");
-        else setError(err instanceof Error ? err.message : "Can't reach the URBAN API.");
+        else setError(err instanceof Error ? err.message : "Can't reach Supabase.");
       });
     return () => {
       active = false;
@@ -59,7 +58,12 @@ export function AdminSessionProvider({
   }, [router]);
 
   const signOut = useCallback(async () => {
-    await adminApi.logout().catch(() => undefined);
+    try {
+      await adminApi.logout();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Couldn't sign out.");
+      return;
+    }
     setAdmin(null);
     router.replace("/admin/login");
   }, [router]);
@@ -68,7 +72,7 @@ export function AdminSessionProvider({
     return (
       <div className="flex min-h-dvh items-center justify-center px-6 text-center">
         <div>
-          <p className="font-medium">The admin portal can&apos;t reach the API.</p>
+          <p className="font-medium">The admin portal can&apos;t reach Supabase.</p>
           <p className="mt-2 text-sm text-muted">{error}</p>
           <button
             type="button"

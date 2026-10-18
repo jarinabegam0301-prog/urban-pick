@@ -247,7 +247,7 @@ function StockSettings({ settings, onSaved }: { settings: AdminSettings; onSaved
 
 function StoreInfo({ settings }: { settings: AdminSettings }) {
   return (
-    <Panel title="Store" description="These come from the server configuration file, not the portal.">
+    <Panel title="Store" description="Store configuration is kept in Supabase.">
       <dl className="divide-y divide-border text-sm">
         <div className="flex items-center justify-between gap-4 py-3">
           <dt className="text-muted">WhatsApp number</dt>
@@ -262,11 +262,7 @@ function StoreInfo({ settings }: { settings: AdminSettings }) {
         <div className="flex items-center justify-between gap-4 py-3">
           <dt className="text-muted">Data storage</dt>
           <dd>
-            {settings.storage === "postgresql" ? (
-              <Badge tone="success">PostgreSQL</Badge>
-            ) : (
-              <Badge tone="info">Sample data in memory — resets on restart</Badge>
-            )}
+            <Badge tone="success">Supabase</Badge>
           </dd>
         </div>
         <div className="flex items-center justify-between gap-4 py-3">
@@ -276,9 +272,9 @@ function StoreInfo({ settings }: { settings: AdminSettings }) {
       </dl>
       {!settings.whatsapp_number ? (
         <p className="mt-3 text-sm text-muted">
-          Set <code className="rounded bg-surface-muted px-1.5 py-0.5">WHATSAPP_NUMBER</code> in{" "}
-          <code className="rounded bg-surface-muted px-1.5 py-0.5">backend/.env</code> (country code and number, digits
-          only) and restart the API.
+          Set the <code className="rounded bg-surface-muted px-1.5 py-0.5">whatsapp_number</code>{" "}
+          value in the Supabase <code className="rounded bg-surface-muted px-1.5 py-0.5">app_settings</code>{" "}
+          table (country code and number, digits only).
         </p>
       ) : null}
     </Panel>

@@ -143,6 +143,7 @@ export type AdminUser = {
 export type AdminSettings = {
   low_stock_threshold: number;
   whatsapp_number: string | null;
-  storage: "memory" | "postgresql";
+  storage: "supabase";
+  timezone: string;
   admin_email: string;
 };

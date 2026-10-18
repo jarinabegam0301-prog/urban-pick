@@ -6,7 +6,7 @@ import { ApiError } from "@/lib/api";
 type State<T> = {
   data: T | null;
   error: string | null;
-  /** HTTP status of the last failure, or 0 when the API was unreachable. */
+  /** HTTP status of the last request failure, or 0 when the service was unreachable. */
   errorStatus: number | null;
   loading: boolean;
 };

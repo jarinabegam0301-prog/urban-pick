@@ -2,12 +2,6 @@
 
 # dependencies
 /node_modules
-.venv/
-backend/.venv/
-backend/uploads/
-__pycache__/
-.pytest_cache/
-backend/uploads/
 /.pnp
 .pnp.*
 .yarn/*
@@ -39,7 +33,6 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 !.env.example
-!backend/.env.example
 
 # vercel
 .vercel

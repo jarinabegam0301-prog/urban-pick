@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Field, Input } from "@/components/ui/field";
+import { ApiError } from "@/lib/api";
 import { adminApi } from "@/services/admin";
 
 export function LoginForm() {
@@ -20,7 +21,10 @@ export function LoginForm() {
       .then(() => {
         if (active) router.replace("/admin");
       })
-      .catch(() => undefined);
+      .catch((err: unknown) => {
+        if (!active || (err instanceof ApiError && err.status === 401)) return;
+        setError(err instanceof Error ? err.message : "Couldn't check your admin session.");
+      });
     return () => {
       active = false;
     };
