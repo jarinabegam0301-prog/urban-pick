@@ -33,7 +33,7 @@ npm install
 npm run dev
 ```
 
-Set `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` in `.env.local`, then open [http://localhost:3000](http://localhost:3000). The same Supabase client is used for local and hosted use; there is no Python server to start.
+Set `NEXT_PUBLIC_SUPABASE_URL` and either `NEXT_PUBLIC_SUPABASE_ANON_KEY` or `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` in `.env.local`, then open [http://localhost:3000](http://localhost:3000). The same Supabase client is used for local and hosted use; there is no Python server to start.
 
 ## Deploy
 

@@ -126,6 +126,9 @@ function mapSale(row: SaleRow): Sale {
 async function requireAdmin(): Promise<AdminUser> {
   const client = getSupabaseClient();
   const { data, error } = await client.auth.getUser();
+  if (error?.name === "AuthSessionMissingError") {
+    throw new ApiError("Your admin session has expired. Sign in again.", 401);
+  }
   if (error) throwSupabaseError(error);
   if (!data.user) throw new ApiError("Your admin session has expired. Sign in again.", 401);
 
